@@ -1,4 +1,4 @@
-# Will the lights stay on? Resource adequacy of the German power system across 35 weather years (v0.1)
+# Will the lights stay on? Resource adequacy of the German power system across 35 weather years, and in a warmer climate (v0.2)
 
 [![tests](https://github.com/michaelserikov/de-power-adequacy/actions/workflows/tests.yml/badge.svg)](https://github.com/michaelserikov/de-power-adequacy/actions/workflows/tests.yml)
 
@@ -52,6 +52,23 @@ This is a single-country study with illustrative assumptions for plant outages a
 
 Full tables, including every weather year and the longest droughts: [results/tables/adequacy.md](results/tables/adequacy.md).
 
+## v0.2: the same system in a warmer climate
+
+Would the 2030 system be easier or harder to keep adequate in the climate of 2041-2070? For 5 CMIP6 models under SSP2-4.5 and SSP3-7.0 (`results/tables/future_climate_by_model.csv`), daily Germany-mean temperature and near-surface wind are compared between 1991-2020 and 2041-2070, by calendar month and decile. Every ERA5 day then gets the change for its own month and decile: added for temperature, multiplied for wind. **The 2030 power system and its demand level stay fixed, so this isolates the climate signal; it is not a forecast of 2050.**
+
+| Case | ERA5 1991-2025 | Range across models and scenarios |
+|---|---|---|
+| 2030 no coal, LOLE (h/yr) | 109 | 68 to 105 |
+| 2030 no coal, new firm capacity (GW) | 9.6 | 7.5 to 9.2 |
+| Central (+3 m heat pumps), LOLE (h/yr) | 188 | 134 to 188 |
+| Central, new firm capacity (GW) | 14.2 | 12.0 to 14.0 |
+| December to February mean temperature (C) | 2.0 | 3.1 to 5.0 |
+| December to February onshore capacity factor | 0.28 | 0.27 to 0.29 |
+
+- In every model and scenario the firm capacity need is lower than with historical weather: warmer winters reduce both heating demand and heat pump load, while wind changes little in the winter mean. A warmer climate does not remove the need; even the lowest values are far above the 2.77 h standard before new capacity is added.
+- The spread between models is larger than the difference between the two scenarios, so this does not rank the scenarios.
+- This is a change-factor method: the sequence of ERA5 weather stays as it was. Changes in the length of cold, windless spells, in circulation or in the joint behaviour of cold and calm are not captured. Each model has one member and 30-year windows, so internal variability is part of the spread. Solar radiation stays unchanged. Results for the rare extreme years should wait for a large ensemble.
+
 ## Model checks
 
 The weather-to-power and load models are fitted on January 2024 to September 2025 and checked on October 2025 to September 2026, then refitted on the whole period.
@@ -102,7 +119,7 @@ Unit sizes and outage rates are illustrative assumptions; the sensitivity with 1
 - **Germany as an island.** Interconnectors and the weather of neighbouring countries are not modelled; imports enter only as a constant. In Europe, cold and windless weather often covers several countries at once, so the import a country can count on in its worst hours is the key open question; this is why official assessments (ENTSO-E ERAA) model the whole interconnected system.
 - **Dispatchable fleet.** All plants listed by Energy-Charts count as available to the market, including those that may sit in reserves, and there is no planned maintenance (irrelevant for winter, when almost all shortfalls happen). Fuel supply, heat-led operation of combined heat and power plants and ramping limits are ignored.
 - **Demand.** Today's demand plus heat pumps only: no electric vehicles, data centres or industrial electrification, and no demand response. Heat demand is spread evenly over the day.
-- **Weather.** 20 points of ERA5 at about 31 km, today's fleet layout and hub heights for every weather year, and the historical climate 1991-2025 rather than climate projections. The trend in the coldest days is a historical observation; how cold extremes and wind droughts change in a warmer climate needs climate model data.
+- **Weather.** 20 points of ERA5 at about 31 km, today's fleet layout and hub heights for every weather year, and the historical climate 1991-2025 in the main results; v0.2 perturbs these years with CMIP6 change factors. The trend in the coldest days is a historical observation; how cold extremes and wind droughts change in a warmer climate needs climate model data.
 - **Probabilities.** With many independent units, the distribution of available capacity is narrow, so the loss-of-load probability of an hour is close to 0 or 1. LOLE is then sensitive to the level of net demand in the few critical hours, and correlated outages (common-mode failures, a gas supply disruption) are not captured.
 
 ## Reproduce
@@ -112,6 +129,8 @@ pip install -e ".[test]"
 python scripts/download_smard.py
 python scripts/download_weather.py     # about 18,000 weighted calls: needs two days of the free API limit, or patience
 python -m adequacy.run                 # tables in results/tables, figures in results/figures
+python scripts/cmip6_germany.py        # v0.2, in its own environment: xarray 2024.10, zarr 2.18, gcsfs, dask, cftime
+python -m adequacy.future              # v0.2: future_climate_by_model.csv and future_climate_summary.csv
 pytest -q                              # offline tests of the adequacy and demand functions
 ```
 

@@ -1,0 +1,5 @@
+case,exp,lole,eens_gwh,firm_needed_gw,t2m_djf,cf_onshore_djf,winter_share,min_lole,max_lole,count_lole,min_firm,max_firm
+"2030, no coal",ssp245,90.18,291.27,8.38,4.27,0.28,0.83,68.3,104.9,5,7.5,9.2
+"2030, no coal",ssp370,87.34,279.9,8.38,4.15,0.28,0.79,73.5,96.0,5,7.6,8.5
+central,ssp245,168.66,774.99,13.08,4.27,0.28,0.82,134.4,187.7,5,12.0,14.0
+central,ssp370,156.04,724.14,13.08,4.15,0.28,0.77,145.1,178.8,5,12.3,13.4

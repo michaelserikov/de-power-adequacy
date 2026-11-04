@@ -1,6 +1,6 @@
 [project]
 name = "adequacy"
-version = "0.1.0"
+version = "0.2.0"
 description = "Resource adequacy of the German power system across 35 weather years: LOLE, EENS, firm capacity need and capacity credit"
 requires-python = ">=3.11"
 dependencies = [
