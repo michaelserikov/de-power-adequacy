@@ -54,20 +54,20 @@ Full tables, including every weather year and the longest droughts: [results/tab
 
 ## v0.2: the same system in a warmer climate
 
-Would the 2030 system be easier or harder to keep adequate in the climate of 2041-2070? For 5 CMIP6 models under SSP2-4.5 and SSP3-7.0 (`results/tables/future_climate_by_model.csv`), daily Germany-mean temperature and near-surface wind are compared between 1991-2020 and 2041-2070, by calendar month and decile. Every ERA5 day then gets the change for its own month and decile: added for temperature, multiplied for wind. **The 2030 power system and its demand level stay fixed, so this isolates the climate signal; it is not a forecast of 2050.**
+Would the 2030 system be easier or harder to keep adequate in the climate of 2041-2070? For 12 CMIP6 models under SSP2-4.5 and SSP3-7.0 (`results/tables/future_climate_by_model.csv`), daily Germany-mean temperature and near-surface wind are compared between 1991-2020 and 2041-2070, by calendar month and decile. Every ERA5 day then gets the change for its own month and decile: added for temperature, multiplied for wind. **The 2030 power system and its demand level stay fixed, so this isolates the climate signal; it is not a forecast of 2050.**
 
 | Case | ERA5 1991-2025 | Range across models and scenarios |
 |---|---|---|
-| 2030 no coal, LOLE (h/yr) | 109 | 68 to 105 |
-| 2030 no coal, new firm capacity (GW) | 9.6 | 7.5 to 9.2 |
-| Central (+3 m heat pumps), LOLE (h/yr) | 188 | 134 to 188 |
-| Central, new firm capacity (GW) | 14.2 | 12.0 to 14.0 |
-| December to February mean temperature (C) | 2.0 | 3.1 to 5.0 |
-| December to February onshore capacity factor | 0.28 | 0.27 to 0.29 |
+| 2030 no coal, LOLE (h/yr) | 109 | 68 to 128 |
+| 2030 no coal, new firm capacity (GW) | 9.6 | 7.5 to 10.0 |
+| Central (+3 m heat pumps), LOLE (h/yr) | 188 | 134 to 226 |
+| Central, new firm capacity (GW) | 14.2 | 12.0 to 15.7 |
+| December to February mean temperature (C) | 2.0 | 3.0 to 5.0 |
+| December to February onshore capacity factor | 0.28 | 0.27 to 0.30 |
 
-- In every model and scenario the firm capacity need is lower than with historical weather: warmer winters reduce both heating demand and heat pump load, while wind changes little in the winter mean. A warmer climate does not remove the need; even the lowest values are far above the 2.77 h standard before new capacity is added.
+- In most runs the firm capacity need is lower than with historical weather (23 of 24 without coal, 22 of 24 in the central case): warmer winters reduce both heating demand and heat pump load, while wind changes little in the winter mean. EC-Earth3 is the exception, above ERA5 under SSP2-4.5 in both cases and under SSP3-7.0 in the central case; its winter means do not stand out and the cause has not been traced. A warmer climate does not remove the need; even the lowest values are far above the 2.77 h standard before new capacity is added.
 - The spread between models is larger than the difference between the two scenarios, so this does not rank the scenarios.
-- This is a change-factor method: the sequence of ERA5 weather stays as it was. Changes in the length of cold, windless spells, in circulation or in the joint behaviour of cold and calm are not captured. Each model has one member and 30-year windows, so internal variability is part of the spread. Solar radiation stays unchanged. Results for the rare extreme years should wait for a large ensemble.
+- This is a change-factor method: the sequence of ERA5 weather stays as it was. Changes in the length of cold, windless spells, in circulation or in the joint behaviour of cold and calm are not captured. Each model has one member and 30-year windows, so internal variability is part of the spread. Solar radiation stays unchanged. KACE-1-0-G did not load because of its 360-day calendar and is left out. Results for the rare extreme years should wait for a large ensemble.
 
 ## Model checks
 
